@@ -2,8 +2,8 @@
 
 #### What is this?
 
-An example repo for Flask and Marshmallow-JSONAPI. It shows how you can combine incoming
-flat attributes into a nested property before saving to the database. And then flatten the
+This is an example repo for Flask and Marshmallow-JSONAPI. It shows how you can combine an object's
+flat attributes into a nested property before persisting that object to the database. You can then flatten the
 nested attributes before returning the response.
 
 
