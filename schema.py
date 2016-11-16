@@ -1,3 +1,4 @@
+import json
 from marshmallow_jsonapi import Schema, fields
 from marshmallow import pre_dump, post_load
 
@@ -31,14 +32,15 @@ class PuppySchema(Schema):
         """
         This function is run before serialization. It flattens the "description" property into the
         attributes listed in PuppySchema.
-        :param kiosk: the original object
+        :param puppy: the original object
         :return: the processed object to be serialized
         """
-        if puppy.config:
-            puppy.name = puppy.config.get('name')
-            puppy.breed = puppy.config.get('breed')
-            puppy.gender = puppy.config.get('gender')
-        return kiosk
+        if puppy.description:
+            description = json.loads(puppy.description)
+            puppy.name = description.get('name')
+            puppy.breed = description.get('breed')
+            puppy.gender = description.get('gender')
+        return puppy
 
     class Meta:
         type_ = "puppies"

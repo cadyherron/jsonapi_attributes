@@ -1,3 +1,5 @@
+import datetime
+import json
 from flask import Blueprint, Flask
 from models import Puppy
 from schema import puppy_schema, puppies_schema
@@ -11,7 +13,7 @@ puppies_v1 = Blueprint('puppies_v1', __name__)
 @puppies_v1.route("/puppies")
 def get_all_puppies():
     puppies = Puppy.query.all()
-    data, _ = puppy_schema.dump(puppies)
+    data, _ = puppies_schema.dump(puppies)
     return jsonapi(data)
 
 
@@ -27,6 +29,26 @@ def create_application():
     # keep application-specific state separate from SQLALchemy extension object
     from models import db
     db.init_app(app)
+
+    # create table and seed a few examples
+    with app.app_context():
+        db.create_all()
+
+        # description1 = {
+        #     "name": "Spot",
+        #     "breed": "dalmation",
+        #     "gender": "male"
+        # }
+        # description2 = {
+        #     "name": "Cornbread",
+        #     "breed": "golden retriever",
+        #     "gender": "female"
+        # }
+        # db.session.add(Puppy(description=json.dumps(description1),
+        #                      birthday=datetime.datetime(2010, 12, 25, 18, 25)))
+        # db.session.add(Puppy(description=json.dumps(description2),
+        #                      birthday=datetime.datetime(2015, 04, 11, 19, 9)))
+        # db.session.commit()
 
     return app
 

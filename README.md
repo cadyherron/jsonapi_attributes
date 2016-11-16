@@ -7,6 +7,39 @@ flat attributes into a nested property before persisting that object to the data
 nested attributes before returning the response.
 
 
+Python object:
+
+puppy = {
+    "description": {
+        "name": "Spot",
+        "breed": "dalmation",
+        "gender": "male"
+    },
+    "birthday": "2016-02-16T00:05:34"
+}
+
+
+Database columns:
+    id
+    description
+    birthday
+
+
+JSONAPI response:
+
+{"data": {
+    "attributes": {
+        "name": "Spot",
+        "breed": "dalmation",
+        "gender": "male",
+        "birthday": "2016-02-16T00:05:34"
+    },
+    "id": "12",
+    "type": "puppies"
+ }
+}
+
+
 #### How to run locally:
 
 1. Clone this repo
